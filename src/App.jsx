@@ -3,11 +3,13 @@ import Home from './pages/Home'
 import Artists from './pages/Artists'
 import Models from './pages/Models'
 import Events from './pages/Events'
+import News from './pages/News'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import ArtistDetail from './pages/ArtistDetail'
 import ModelDetail from './pages/ModelDetail'
 import EventDetail from './pages/EventDetail'
+import NewsDetail from './pages/NewsDetail'
 import DashboardHome from './dashboard/pages/DashboardHome'
 import DashboardArtists from './dashboard/pages/DashboardArtists'
 import DashboardModels from './dashboard/pages/DashboardModels'
@@ -23,11 +25,13 @@ function App() {
         <Route path="/artist" element={<Artists />} />
         <Route path="/model" element={<Models />} />
         <Route path="/event" element={<Events />} />
+        <Route path="/news" element={<News />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/artist/:id" element={<ArtistDetail />} />
         <Route path="/model/:id" element={<ModelDetail />} />
         <Route path="/event/:id" element={<EventDetail />} />
+        <Route path="/news/:id" element={<NewsDetail />} />
 
         {/* Dashboard Routes */}
         <Route
