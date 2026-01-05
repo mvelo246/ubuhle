@@ -1,8 +1,27 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  const handleSectionClick = (sectionId) => {
+    setIsMenuOpen(false)
+    
+    if (location.pathname === '/') {
+      // Already on home page, just scroll
+      setTimeout(() => {
+        const element = document.getElementById(sectionId)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+      }, 100)
+    } else {
+      // Navigate to home first, then scroll after page loads
+      navigate('/', { state: { scrollTo: sectionId } })
+    }
+  }
 
   return (
     <header className="px-4 bg-white shadow sticky top-0 z-10">
@@ -43,14 +62,22 @@ function Header() {
         >
           <ul className="flex flex-col gap-y-4 sm:flex-row sm:gap-x-8">
             <li>
+              <button
+                onClick={() => handleSectionClick('artists-section')}
+                className="text-gray-600 hover:text-blue-600 transition-colors duration-200 bg-transparent border-none cursor-pointer"
+              >
               <Link to="/artist" className="text-gray-800 hover:text-primary-600 font-medium transition-colors">
                 Artist
-              </Link>
+              </button>
             </li>
             <li>
+              <button
+                onClick={() => handleSectionClick('models-section')}
+                className="text-gray-600 hover:text-blue-600 transition-colors duration-200 bg-transparent border-none cursor-pointer"
+              >
               <Link to="/model" className="text-gray-800 hover:text-primary-600 font-medium transition-colors">
                 Model
-              </Link>
+              </button>
             </li>
             <li>
               <Link to="/event" className="text-gray-800 hover:text-primary-600 font-medium transition-colors">
