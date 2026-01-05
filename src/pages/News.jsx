@@ -36,26 +36,24 @@ function News() {
                   <p className="text-gray-600 mb-4 text-sm sm:text-base leading-relaxed">
                     {news.description}
                   </p>
-                  {news.link && news.link !== '#' && (
-                    <Link
-                      to={news.link}
-                      className="inline-flex items-center text-primary-600 hover:text-primary-700 font-semibold text-sm sm:text-base transition-colors"
+                  <Link
+                    to={`/news/${news.id}`}
+                    className="inline-flex items-center text-primary-600 hover:text-primary-700 font-semibold text-sm sm:text-base transition-colors"
+                  >
+                    Read More
+                    <svg
+                      className="w-4 h-4 ml-2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     >
-                      Read More
-                      <svg
-                        className="w-4 h-4 ml-2"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        fill="none"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M5 12h14"></path>
-                        <path d="M12 5l7 7-7 7"></path>
-                      </svg>
-                    </Link>
-                  )}
+                      <path d="M5 12h14"></path>
+                      <path d="M12 5l7 7-7 7"></path>
+                    </svg>
+                  </Link>
                 </div>
               </div>
             ))}
