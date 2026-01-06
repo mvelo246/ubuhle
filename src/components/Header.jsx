@@ -1,27 +1,8 @@
 import { useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const location = useLocation()
-  const navigate = useNavigate()
-
-  const handleSectionClick = (sectionId) => {
-    setIsMenuOpen(false)
-    
-    if (location.pathname === '/') {
-      // Already on home page, just scroll
-      setTimeout(() => {
-        const element = document.getElementById(sectionId)
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        }
-      }, 100)
-    } else {
-      // Navigate to home first, then scroll after page loads
-      navigate('/', { state: { scrollTo: sectionId } })
-    }
-  }
 
   return (
     <header className="px-4 bg-white shadow sticky top-0 z-10">
@@ -62,22 +43,30 @@ function Header() {
         >
           <ul className="flex flex-col gap-y-4 sm:flex-row sm:gap-x-8">
             <li>
+<<<<<<< HEAD
               <button
                 onClick={() => handleSectionClick('artists-section')}
                 className="text-gray-600 hover:text-blue-600 transition-colors duration-200 bg-transparent border-none cursor-pointer"
               >
               <Link to="/artist" className="text-gray-800 hover:text-primary-600 font-medium transition-colors">
+=======
+              <Link to="/artist" className="text-gray-600 hover:text-blue-600">
+>>>>>>> parent of dea8d92 (Made the pictures slides from home page)
                 Artist
-              </button>
+              </Link>
             </li>
             <li>
+<<<<<<< HEAD
               <button
                 onClick={() => handleSectionClick('models-section')}
                 className="text-gray-600 hover:text-blue-600 transition-colors duration-200 bg-transparent border-none cursor-pointer"
               >
               <Link to="/model" className="text-gray-800 hover:text-primary-600 font-medium transition-colors">
+=======
+              <Link to="/model" className="text-gray-600 hover:text-blue-600">
+>>>>>>> parent of dea8d92 (Made the pictures slides from home page)
                 Model
-              </button>
+              </Link>
             </li>
             <li>
               <Link to="/event" className="text-gray-800 hover:text-primary-600 font-medium transition-colors">
