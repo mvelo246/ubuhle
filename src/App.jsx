@@ -9,7 +9,6 @@ import Contact from './pages/Contact'
 import ArtistDetail from './pages/ArtistDetail'
 import ModelDetail from './pages/ModelDetail'
 import EventDetail from './pages/EventDetail'
-import NewsDetail from './pages/NewsDetail'
 import DashboardHome from './dashboard/pages/DashboardHome'
 import DashboardArtists from './dashboard/pages/DashboardArtists'
 import DashboardModels from './dashboard/pages/DashboardModels'
@@ -31,7 +30,6 @@ function App() {
         <Route path="/artist/:id" element={<ArtistDetail />} />
         <Route path="/model/:id" element={<ModelDetail />} />
         <Route path="/event/:id" element={<EventDetail />} />
-        <Route path="/news/:id" element={<NewsDetail />} />
 
         {/* Dashboard Routes */}
         <Route

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 
 function NewsSlider({ newsItems }) {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -31,7 +30,16 @@ function NewsSlider({ newsItems }) {
   if (newsItems.length === 0) return null
 
   return (
-    <div className="relative max-w-4xl mx-auto">
+    <section className="bg-gradient-to-r from-blue-50 to-indigo-50 py-8 sm:py-12 md:py-16 relative overflow-hidden">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-8 sm:mb-10">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 text-gray-800">
+            Latest News
+          </h2>
+          <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto rounded-full"></div>
+        </div>
+
+        <div className="relative max-w-4xl mx-auto">
           {/* Slider Container */}
           <div className="relative h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden shadow-xl">
             <div
@@ -56,21 +64,23 @@ function NewsSlider({ newsItems }) {
 
                   {/* Content */}
                   <div className="relative z-10 px-6 sm:px-8 md:px-12 text-center max-w-3xl">
-                    <div className="text-sm sm:text-base text-white/90 mb-2 font-medium">
+                    <div className="text-sm sm:text-base text-blue-200 mb-2 font-medium">
                       {item.date}
                     </div>
-                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-white">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
                       {item.title}
                     </h3>
-                    <p className="text-base sm:text-lg text-white/95 leading-relaxed">
+                    <p className="text-base sm:text-lg text-blue-100 leading-relaxed">
                       {item.description}
                     </p>
-                    <Link
-                      to={`/news/${item.id}`}
-                      className="inline-block mt-6 px-6 py-2.5 bg-white text-primary-600 rounded-lg font-bold hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl"
-                    >
-                      Read More
-                    </Link>
+                    {item.link && (
+                      <a
+                        href={item.link}
+                        className="inline-block mt-6 px-6 py-2.5 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors duration-200"
+                      >
+                        Read More
+                      </a>
+                    )}
                   </div>
                 </div>
               ))}
@@ -80,7 +90,7 @@ function NewsSlider({ newsItems }) {
           {/* Navigation Arrows */}
           <button
             onClick={goToPrevious}
-            className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-100 text-primary-600 p-2 sm:p-3 rounded-full shadow-lg transition-all duration-200 z-10"
+            className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-blue-600 p-2 sm:p-3 rounded-full shadow-lg transition-all duration-200 z-10"
             aria-label="Previous slide"
           >
             <svg
@@ -100,7 +110,7 @@ function NewsSlider({ newsItems }) {
 
           <button
             onClick={goToNext}
-            className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-100 text-primary-600 p-2 sm:p-3 rounded-full shadow-lg transition-all duration-200 z-10"
+            className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-blue-600 p-2 sm:p-3 rounded-full shadow-lg transition-all duration-200 z-10"
             aria-label="Next slide"
           >
             <svg
@@ -126,14 +136,16 @@ function NewsSlider({ newsItems }) {
                 onClick={() => goToSlide(index)}
                 className={`h-2 sm:h-2.5 rounded-full transition-all duration-300 ${
                   index === currentIndex
-                    ? 'w-8 sm:w-10 bg-primary-600'
-                    : 'w-2 sm:w-2.5 bg-gray-400 hover:bg-gray-500'
+                    ? 'w-8 sm:w-10 bg-blue-600'
+                    : 'w-2 sm:w-2.5 bg-gray-300 hover:bg-gray-400'
                 }`}
                 aria-label={`Go to slide ${index + 1}`}
               />
             ))}
           </div>
         </div>
+      </div>
+    </section>
   )
 }
 

@@ -12,10 +12,10 @@ function Hero() {
         </div>
 
         <div className="relative z-10 flex flex-col justify-center items-center h-full text-center px-4">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4 text-white drop-shadow-lg">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4">
             Welcome to Ubuhle Bekonjana
           </h1>
-          <p className="text-base sm:text-lg text-white/95 mb-8 max-w-2xl drop-shadow-md">
+          <p className="text-base sm:text-lg text-gray-300 mb-8 max-w-2xl">
             Music is powerful. As people listen to it, they can be affected.
             They respond.
           </p>

@@ -14,7 +14,7 @@ function ArtistCard({ artist }) {
       <div className="absolute inset-0 flex translate-y-[60%] flex-col items-center justify-center px-4 sm:px-9 text-center transition-all duration-500 group-hover:translate-y-0">
         <h1 className="font-dmserif text-2xl sm:text-3xl font-bold text-white">{artist.name}</h1>
         <Link to={`/artist/${artist.id}`}>
-          <button className="rounded-full bg-gradient-to-r from-primary-600 to-purple-600 py-2 px-3.5 font-semibold text-xs sm:text-sm capitalize text-white shadow-lg hover:shadow-xl mt-2 transition-all duration-300 hover:scale-105">
+          <button className="rounded-full bg-neutral-900 py-2 px-3.5 font-com text-xs sm:text-sm capitalize text-white shadow shadow-black/60 mt-2">
             See More
           </button>
         </Link>
