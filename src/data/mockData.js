@@ -5,8 +5,9 @@ export const artists = [
     id: 1,
     name: 'mzaca',
     image: '/th.jpg',
-    bio: 'Talented artist from South Africa',
+    bio: 'Mzaca is a talented and passionate artist hailing from the vibrant music scene of South Africa. With a unique blend of authentic sound and contemporary style, Mzaca has been captivating audiences with heartfelt performances and meaningful lyrics. Drawing inspiration from rich cultural heritage and modern influences, the artist creates music that resonates with listeners across generations. Through dedication and artistic vision, Mzaca continues to make a significant impact in the music industry.',
     email: 'mzaca@gmail.com',
+    phone: '+27 12 345 6789',
   },
   {
     id: 2,
