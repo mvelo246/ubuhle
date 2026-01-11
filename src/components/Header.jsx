@@ -82,11 +82,6 @@ function Header() {
               </Link>
             </li>
             <li>
-              <Link to="/news" className="text-gray-600 hover:text-blue-600">
-                News
-              </Link>
-            </li>
-            <li>
               <Link to="/about" className="text-gray-600 hover:text-blue-600">
                 About
               </Link>
