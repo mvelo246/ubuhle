@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 function NewsSlider({ newsItems }) {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -32,11 +33,32 @@ function NewsSlider({ newsItems }) {
   return (
     <section className="bg-gradient-to-r from-blue-50 to-indigo-50 py-8 sm:py-12 md:py-16 relative overflow-hidden">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-8 sm:mb-10">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 text-gray-800">
-            Latest News
-          </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto rounded-full"></div>
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-8 sm:mb-10">
+          <div className="text-center sm:text-left mb-4 sm:mb-0">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 text-gray-800">
+              Latest News
+            </h2>
+            <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto sm:mx-0 rounded-full"></div>
+          </div>
+          <Link
+            to="/news"
+            className="text-blue-600 hover:text-blue-800 font-semibold text-sm sm:text-base transition-colors inline-flex items-center"
+          >
+            View All News
+            <svg
+              className="w-4 h-4 ml-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </Link>
         </div>
 
         <div className="relative max-w-4xl mx-auto">
@@ -73,14 +95,12 @@ function NewsSlider({ newsItems }) {
                     <p className="text-base sm:text-lg text-blue-100 leading-relaxed">
                       {item.description}
                     </p>
-                    {item.link && (
-                      <a
-                        href={item.link}
-                        className="inline-block mt-6 px-6 py-2.5 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors duration-200"
-                      >
-                        Read More
-                      </a>
-                    )}
+                    <Link
+                      to={`/news/${item.id}`}
+                      className="inline-block mt-6 px-6 py-2.5 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors duration-200"
+                    >
+                      Read More
+                    </Link>
                   </div>
                 </div>
               ))}
