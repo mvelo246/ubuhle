@@ -19,129 +19,226 @@ function ArtistDetail() {
   return (
     <>
       <Header />
-      <div className="flex pt-8 sm:pt-12 px-4 sm:px-6 md:px-20 items-center justify-center bg-hero min-h-[500px] md:h-screen overflow-hidden">
-        <div className="flex flex-col gap-4 sm:gap-6 md:flex-row items-center max-w-8xl w-full">
-          <div className="w-full md:w-1/2 md:pr-8 lg:pr-32">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-center md:text-left text-blue-900 leading-tight font-medium">
-              {artist.name}
-            </h2>
-            <h3 className="mt-4 sm:mt-6 md:mt-10 text-sm sm:text-base lg:text-xl text-center md:text-left text-gray-700 font-light tracking-wider leading-relaxed">
-              {artist.bio}
-            </h3>
-            <div className="mt-6 sm:mt-8 md:mt-10 flex flex-col sm:flex-row justify-center md:justify-start">
+      
+      {/* Hero Section */}
+      <div className="relative bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 min-h-[600px] sm:min-h-[700px] flex items-center overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}></div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-12 sm:py-16">
+          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+            {/* Image Section */}
+            <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-2xl transform rotate-3 opacity-75"></div>
+                <img 
+                  src={artist.image} 
+                  alt={artist.name} 
+                  className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 object-cover rounded-2xl shadow-2xl border-4 border-white/20"
+                />
+              </div>
+            </div>
+            
+            {/* Content Section */}
+            <div className="w-full lg:w-1/2 text-center lg:text-left">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 drop-shadow-lg">
+                {artist.name}
+              </h1>
+              <p className="text-lg sm:text-xl text-white/90 mb-6 sm:mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                {artist.bio}
+              </p>
               <button
                 onClick={handleScrollToMusic}
-                className="w-full sm:w-40 px-4 py-2.5 sm:py-3 rounded font-semibold text-sm sm:text-md bg-blue-500 text-white border-2 border-blue-500"
+                className="inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 bg-white text-blue-600 rounded-xl font-semibold text-base sm:text-lg hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
-                Musics
+                <svg 
+                  className="w-5 h-5 sm:w-6 sm:h-6 mr-2" 
+                  fill="currentColor" 
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z" />
+                </svg>
+                Listen to Music
               </button>
             </div>
           </div>
-          <div className="w-full md:w-1/2 flex justify-center md:justify-end mt-4 md:mt-0">
-            <img src={artist.image} alt={artist.name} className="w-full max-w-md md:max-w-none" />
-          </div>
         </div>
       </div>
 
-      <div id="music" className="bg-gray-100">
-        <main className="flex-grow p-4 sm:p-6 md:p-8 mt-8 sm:mt-12 md:mt-16 place-items-center">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {artistSongs.length > 0 ? (
-              artistSongs.map((song) => (
+      {/* Music Section */}
+      <div id="music" className="bg-gray-50 py-12 sm:py-16 lg:py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10 sm:mb-12">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
+              Discography
+            </h2>
+            <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+          </div>
+          
+          {artistSongs.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {artistSongs.map((song) => (
                 <MusicPlayer key={song.id} song={song} />
-              ))
-            ) : (
-              <>
-                <MusicPlayer song={{ name: 'Umenzi', artist: artist.name, image: artist.image }} />
-                <MusicPlayer song={{ name: 'Random Song', artist: artist.name, image: artist.image }} />
-                <MusicPlayer song={{ name: 'Another Song', artist: artist.name, image: artist.image }} />
-              </>
-            )}
-          </div>
-        </main>
-
-        <div className="mt-4 sm:mt-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 items-center gap-8 sm:gap-12 md:gap-16 p-4 sm:p-6 md:p-8 mx-auto max-w-4xl bg-white shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-md text-[#333] font-[sans-serif]">
-            <div className="">
-              <h1 className="text-2xl sm:text-3xl font-extrabold">Book {artist.name}</h1>
-              <ul className="mt-3">
-                <li className="flex items-center">
-                  <div className="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20px"
-                      height="20px"
-                      fill="#007bff"
-                      viewBox="0 0 479.058 479.058"
-                    >
-                      <path
-                        d="M434.146 59.882H44.912C20.146 59.882 0 80.028 0 104.794v269.47c0 24.766 20.146 44.912 44.912 44.912h389.234c24.766 0 44.912-20.146 44.912-44.912v-269.47c0-24.766-20.146-44.912-44.912-44.912zm0 29.941c2.034 0 3.969.422 5.738 1.159L239.529 264.631 39.173 90.982a14.902 14.902 0 0 1 5.738-1.159zm0 299.411H44.912c-8.26 0-14.971-6.71-14.971-14.971V122.615l199.778 173.141c2.822 2.441 6.316 3.655 9.81 3.655s6.988-1.213 9.81-3.655l199.778-173.141v251.649c-.001 8.26-6.711 14.97-14.971 14.97z"
-                        data-original="#000000"
-                      />
-                    </svg>
-                  </div>
-                  <a
-                    target="blank"
-                    href={`mailto:${artist.email}`}
-                    className="text-[#007bff] text-xs sm:text-sm ml-3 break-words"
-                  >
-                    <small className="block">Mail</small>
-                    <strong className="break-all">{artist.email}</strong>
-                  </a>
-                </li>
-              </ul>
+              ))}
             </div>
-            <div className="mt-4 sm:mt-1">
-              <h2 className="text-2xl sm:text-3xl font-extrabold">Socials</h2>
-              <ul className="flex mt-3 space-x-4">
-                <li className="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                  <a href="javascript:void(0)">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20px"
-                      height="20px"
-                      fill="#007bff"
-                      viewBox="0 0 24 24"
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              <MusicPlayer song={{ name: 'Umenzi', artist: artist.name, image: artist.image }} />
+              <MusicPlayer song={{ name: 'Random Song', artist: artist.name, image: artist.image }} />
+              <MusicPlayer song={{ name: 'Another Song', artist: artist.name, image: artist.image }} />
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Booking & Contact Section */}
+      <div className="bg-white py-12 sm:py-16 lg:py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto">
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-xl p-8 sm:p-10 lg:p-12">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                {/* Booking Section */}
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">
+                    Book {artist.name}
+                  </h2>
+                  <div className="space-y-4">
+                    <a
+                      href={`mailto:${artist.email}`}
+                      className="flex items-center p-4 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group"
                     >
-                      <path d="M6.812 13.937H9.33v9.312c0 .414.335.75.75.75l4.007.001a.75.75 0 0 0 .75-.75v-9.312h2.387a.75.75 0 0 0 .744-.657l.498-4a.75.75 0 0 0-.744-.843h-2.885c.113-2.471-.435-3.202 1.172-3.202 1.088-.13 2.804.421 2.804-.75V.909a.75.75 0 0 0-.648-.743A26.926 26.926 0 0 0 15.071 0c-7.01 0-5.567 7.772-5.74 8.437H6.812a.75.75 0 0 0-.75.75v4c0 .414.336.75.75.75zm.75-3.999h2.518a.75.75 0 0 0 .75-.75V6.037c0-2.883 1.545-4.536 4.24-4.536.878 0 1.686.043 2.242.087v2.149c-.402.205-3.976-.884-3.976 2.697v2.755c0 .414.336.75.75.75h2.786l-.312 2.5h-2.474a.75.75 0 0 0-.75.75V22.5h-2.505v-9.312a.75.75 0 0 0-.75-.75H7.562z" data-original="#000000" />
-                    </svg>
-                  </a>
-                </li>
-                <li className="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                  <a href="javascript:void(0)">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20px"
-                      height="20px"
-                      fill="#007bff"
-                      viewBox="0 0 511 512"
+                      <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-6 h-6 text-white"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                          />
+                        </svg>
+                      </div>
+                      <div className="ml-4">
+                        <p className="text-sm text-gray-500 font-medium">Email</p>
+                        <p className="text-blue-600 font-semibold break-all">{artist.email}</p>
+                      </div>
+                    </a>
+                    {artist.phone && (
+                      <a
+                        href={`tel:${artist.phone.replace(/\s/g, '')}`}
+                        className="flex items-center p-4 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group"
+                      >
+                        <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-6 h-6 text-white"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                            />
+                          </svg>
+                        </div>
+                        <div className="ml-4">
+                          <p className="text-sm text-gray-500 font-medium">Phone</p>
+                          <p className="text-green-600 font-semibold">{artist.phone}</p>
+                        </div>
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                {/* Social Section */}
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">
+                    Follow {artist.name}
+                  </h2>
+                  <div className="flex flex-wrap gap-4">
+                    <a
+                      href="https://facebook.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center w-14 h-14 bg-white rounded-full shadow-md hover:shadow-lg hover:bg-blue-50 transition-all duration-300 group"
+                      aria-label="Facebook"
                     >
-                      <path d="M111.898 160.664H15.5c-8.285 0-15 6.719-15 15V497c0 8.285 6.715 15 15 15h96.398c8.286 0 15-6.715 15-15V175.664c0-8.281-6.714-15-15-15zM96.898 482H30.5V190.664h66.398zM63.703 0C28.852 0 .5 28.352.5 63.195c0 34.852 28.352 63.2 63.203 63.2 34.848 0 63.195-28.352 63.195-63.2C126.898 28.352 98.551 0 63.703 0zm0 96.395c-18.308 0-33.203-14.891-33.203-33.2C30.5 44.891 45.395 30 63.703 30c18.305 0 33.195 14.89 33.195 33.195 0 18.309-14.89 33.2-33.195 33.2zm289.207 62.148c-22.8 0-45.273 5.496-65.398 15.777-.684-7.652-7.11-13.656-14.942-13.656h-96.406c-8.281 0-15 6.719-15 15V497c0 8.285 6.719 15 15 15h96.406c8.285 0 15-6.715 15-15V320.266c0-22.735 18.5-41.23 41.235-41.23 22.734 0 41.226 18.495 41.226 41.23V497c0 8.285 6.719 15 15 15h96.403c8.285 0 15-6.715 15-15V302.066c0-79.14-64.383-143.523-143.524-143.523zM466.434 482h-66.399V320.266c0-39.278-31.953-71.23-71.226-71.23-39.282 0-71.239 31.952-71.239 71.23V482h-66.402V190.664h66.402v11.082c0 5.77 3.309 11.027 8.512 13.524a15.01 15.01 0 0 0 15.875-1.82c20.313-16.294 44.852-24.907 70.953-24.907 62.598 0 113.524 50.926 113.524 113.523zm0 0" data-original="#000000" />
-                    </svg>
-                  </a>
-                </li>
-                <li className="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                  <a href="javascript:void(0)">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20px"
-                      height="20px"
-                      fill="#007bff"
-                      viewBox="0 0 24 24"
+                      <svg
+                        className="w-6 h-6 text-blue-600 group-hover:scale-110 transition-transform duration-300"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                      </svg>
+                    </a>
+                    <a
+                      href="https://linkedin.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center w-14 h-14 bg-white rounded-full shadow-md hover:shadow-lg hover:bg-blue-50 transition-all duration-300 group"
+                      aria-label="LinkedIn"
                     >
-                      <path d="M12 9.3a2.7 2.7 0 1 0 0 5.4 2.7 2.7 0 0 0 0-5.4Zm0-1.8a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm5.85-.225a1.125 1.125 0 1 1-2.25 0 1.125 1.125 0 0 1 2.25 0ZM12 4.8c-2.227 0-2.59.006-3.626.052-.706.034-1.18.128-1.618.299a2.59 2.59 0 0 0-.972.633 2.601 2.601 0 0 0-.634.972c-.17.44-.265.913-.298 1.618C4.805 9.367 4.8 9.714 4.8 12c0 2.227.006 2.59.052 3.626.034.705.128 1.18.298 1.617.153.392.333.674.632.972.303.303.585.484.972.633.445.172.918.267 1.62.3.993.047 1.34.052 3.626.052 2.227 0 2.59-.006 3.626-.052.704-.034 1.178-.128 1.617-.298.39-.152.674-.333.972-.632.304-.303.485-.585.634-.972.171-.444.266-.918.299-1.62.047-.993.052-1.34.052-3.626 0-2.227-.006-2.59-.052-3.626-.034-.704-.128-1.18-.299-1.618a2.619 2.619 0 0 0-.633-.972 2.595 2.595 0 0 0-.972-.634c-.44-.17-.914-.265-1.618-.298-.993-.047-1.34-.052-3.626-.052ZM12 3c2.445 0 2.75.009 3.71.054.958.045 1.61.195 2.185.419A4.388 4.388 0 0 1 19.49 4.51c.457.45.812.994 1.038 1.595.222.573.373 1.227.418 2.185.042.96.054 1.265.054 3.71 0 2.445-.009 2.75-.054 3.71-.045.958-.196 1.61-.419 2.185a4.395 4.395 0 0 1-1.037 1.595 4.44 4.44 0 0 1-1.595 1.038c-.573.222-1.227.373-2.185.418-.96.042-1.265.054-3.71.054-2.445 0-2.75-.009-3.71-.054-.958-.045-1.61-.196-2.185-.419A4.402 4.402 0 0 1 4.51 19.49a4.414 4.414 0 0 1-1.037-1.595c-.224-.573-.374-1.227-.419-2.185C3.012 14.75 3 14.445 3 12c0-2.445.009-2.75.054-3.71s.195-1.61.419-2.185A4.392 4.392 0 0 1 4.51 4.51c.45-.458.994-.812 1.595-1.037.574-.224 1.226-.374 2.185-.419C9.25 3.012 9.555 3 12 3Z" />
-                    </svg>
-                  </a>
-                </li>
-              </ul>
+                      <svg
+                        className="w-6 h-6 text-blue-600 group-hover:scale-110 transition-transform duration-300"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                      </svg>
+                    </a>
+                    <a
+                      href="https://instagram.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center w-14 h-14 bg-white rounded-full shadow-md hover:shadow-lg hover:bg-blue-50 transition-all duration-300 group"
+                      aria-label="Instagram"
+                    >
+                      <svg
+                        className="w-6 h-6 text-blue-600 group-hover:scale-110 transition-transform duration-300"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                      </svg>
+                    </a>
+                    <a
+                      href="https://tiktok.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center w-14 h-14 bg-white rounded-full shadow-md hover:shadow-lg hover:bg-blue-50 transition-all duration-300 group"
+                      aria-label="TikTok"
+                    >
+                      <svg
+                        className="w-6 h-6 text-blue-600 group-hover:scale-110 transition-transform duration-300"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
       <Footer />
     </>
   )
 }
 
 export default ArtistDetail
-
