@@ -26,129 +26,188 @@ function Contact() {
   return (
     <>
       <Header />
-      <div className="relative flex items-top justify-center min-h-screen bg-white dark:bg-gray-900 sm:items-center sm:pt-0">
-        <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
-          <div className="mt-8 overflow-hidden">
-            <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="p-6 mr-2 bg-gray-100 dark:bg-gray-800 sm:rounded-lg">
-                <h1 className="text-4xl sm:text-5xl text-gray-800 dark:text-white font-extrabold tracking-tight">
-                  Get in touch
-                </h1>
-                <p className="text-normal text-lg sm:text-2xl font-medium text-gray-600 dark:text-gray-400 mt-2">
-                  Fill in the form to start a conversation
-                </p>
+      
+      {/* Hero Section */}
+      <div className="relative bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 py-16 sm:py-20 lg:py-24 overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}></div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-4xl mx-auto">
+            <span className="inline-block text-blue-200 text-sm sm:text-base font-semibold uppercase tracking-wider mb-4">
+              Contact Us
+            </span>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-lg">
+              Get In <span className="text-yellow-300">Touch</span>
+            </h1>
+            <p className="text-lg sm:text-xl text-white/90 leading-relaxed">
+              We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+            </p>
+          </div>
+        </div>
+      </div>
 
-                <div className="flex items-center mt-8 text-gray-600 dark:text-gray-400">
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    viewBox="0 0 24 24"
-                    className="w-8 h-8 text-gray-500"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="1.5"
-                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                    />
-                  </svg>
-                  <div className="ml-4 text-md tracking-wide font-semibold w-40">
-                    0605503464
+      {/* Main Content */}
+      <div className="bg-gray-50 py-12 sm:py-16 lg:py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+              
+              {/* Contact Information */}
+              <div className="order-2 lg:order-1">
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-xl p-8 sm:p-10 h-full">
+                  <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+                    Contact Information
+                  </h2>
+                  <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mb-8"></div>
+                  
+                  <div className="space-y-6">
+                    {/* Phone */}
+                    <a
+                      href="tel:0605503464"
+                      className="flex items-center p-4 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group"
+                    >
+                      <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-7 h-7 text-white"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                          />
+                        </svg>
+                      </div>
+                      <div className="ml-4">
+                        <p className="text-sm text-gray-500 font-medium">Phone</p>
+                        <p className="text-green-600 font-semibold text-lg">060 550 3464</p>
+                      </div>
+                    </a>
+
+                    {/* Email */}
+                    <a
+                      href="mailto:Ubuhle@gmail.com"
+                      className="flex items-center p-4 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group"
+                    >
+                      <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-7 h-7 text-white"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                          />
+                        </svg>
+                      </div>
+                      <div className="ml-4">
+                        <p className="text-sm text-gray-500 font-medium">Email</p>
+                        <p className="text-blue-600 font-semibold text-lg break-all">Ubuhle@gmail.com</p>
+                      </div>
+                    </a>
                   </div>
-                </div>
 
-                <div className="flex items-center mt-2 text-gray-600 dark:text-gray-400">
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    viewBox="0 0 24 24"
-                    className="w-8 h-8 text-gray-500"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="1.5"
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
-                  <div className="ml-4 text-md tracking-wide font-semibold w-40">
-                    <a href="https://veilmail.io/irish-geoff">Ubuhle@gmail.com</a>
+                  {/* Additional Info */}
+                  <div className="mt-8 pt-8 border-t border-gray-200">
+                    <p className="text-gray-700 leading-relaxed">
+                      Whether you're an artist looking to join our platform, a model seeking opportunities, or simply want to get in touch, we're here to help. Reach out to us through any of the channels above.
+                    </p>
                   </div>
                 </div>
               </div>
 
-              <form
-                onSubmit={handleSubmit}
-                className="p-6 flex flex-col justify-center"
-              >
-                <div className="flex flex-col">
-                  <label htmlFor="name" className="hidden">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    placeholder="Full Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
-                    required
-                  />
-                </div>
+              {/* Contact Form */}
+              <div className="order-1 lg:order-2">
+                <div className="bg-white rounded-2xl shadow-xl p-8 sm:p-10">
+                  <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+                    Send us a Message
+                  </h2>
+                  <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mb-8"></div>
 
-                <div className="flex flex-col mt-2">
-                  <label htmlFor="email" className="hidden">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
-                    required
-                  />
-                </div>
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* Name Field */}
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
+                        Full Name
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        placeholder="Enter your full name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all duration-300 text-gray-900"
+                        required
+                      />
+                    </div>
 
-                <div className="flex flex-col mt-2">
-                  <label htmlFor="message" className="hidden">
-                    Message
-                  </label>
-                  <textarea
-                    name="message"
-                    id="message"
-                    placeholder="Your Message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    className="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
-                    required
-                  ></textarea>
-                </div>
+                    {/* Email Field */}
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+                        Email Address
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="Enter your email address"
+                        value={formData.email}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all duration-300 text-gray-900"
+                        required
+                      />
+                    </div>
 
-                <button
-                  type="submit"
-                  className="md:w-32 bg-black hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-lg mt-3 hover:bg-indigo-500 transition ease-in-out duration-300"
-                >
-                  Submit
-                </button>
-              </form>
+                    {/* Message Field */}
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-2">
+                        Message
+                      </label>
+                      <textarea
+                        name="message"
+                        id="message"
+                        rows="6"
+                        placeholder="Enter your message..."
+                        value={formData.message}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all duration-300 text-gray-900 resize-none"
+                        required
+                      ></textarea>
+                    </div>
+
+                    {/* Submit Button */}
+                    <button
+                      type="submit"
+                      className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                    >
+                      Send Message
+                    </button>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
       <Footer />
     </>
   )
 }
 
 export default Contact
-
