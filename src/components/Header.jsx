@@ -20,7 +20,7 @@ function Header() {
           onChange={(e) => setIsMenuOpen(e.target.checked)}
         />
         <label
-          className="absolute right-0 mt-1 cursor-pointer text-xl sm:hidden"
+          className="absolute right-0 mt-1 cursor-pointer text-xl sm:hidden text-gray-800"
           htmlFor="navbar-open"
         >
           <span className="sr-only">Toggle Navigation</span>
@@ -43,53 +43,29 @@ function Header() {
         >
           <ul className="flex flex-col gap-y-4 sm:flex-row sm:gap-x-8">
             <li>
-<<<<<<< HEAD
-<<<<<<< HEAD
-              <button
-                onClick={() => handleSectionClick('artists-section')}
-                className="text-gray-600 hover:text-blue-600 transition-colors duration-200 bg-transparent border-none cursor-pointer"
-              >
-              <Link to="/artist" className="text-gray-800 hover:text-primary-600 font-medium transition-colors">
-=======
-              <Link to="/artist" className="text-gray-600 hover:text-blue-600">
->>>>>>> parent of dea8d92 (Made the pictures slides from home page)
-=======
-              <Link to="/artist" className="text-gray-600 hover:text-blue-600">
->>>>>>> parent of c678494 (artistdetails)
+              <Link to="/artist" className="text-gray-600 hover:text-blue-600 font-medium transition-colors">
                 Artist
               </Link>
             </li>
             <li>
-<<<<<<< HEAD
-<<<<<<< HEAD
-              <button
-                onClick={() => handleSectionClick('models-section')}
-                className="text-gray-600 hover:text-blue-600 transition-colors duration-200 bg-transparent border-none cursor-pointer"
-              >
-              <Link to="/model" className="text-gray-800 hover:text-primary-600 font-medium transition-colors">
-=======
-              <Link to="/model" className="text-gray-600 hover:text-blue-600">
->>>>>>> parent of dea8d92 (Made the pictures slides from home page)
-=======
-              <Link to="/model" className="text-gray-600 hover:text-blue-600">
->>>>>>> parent of c678494 (artistdetails)
+              <Link to="/model" className="text-gray-600 hover:text-blue-600 font-medium transition-colors">
                 Model
               </Link>
             </li>
             <li>
-              <Link to="/event" className="text-gray-600 hover:text-blue-600">
+              <Link to="/event" className="text-gray-600 hover:text-blue-600 font-medium transition-colors">
                 Events
               </Link>
             </li>
             <li>
-              <Link to="/about" className="text-gray-600 hover:text-blue-600">
+              <Link to="/about" className="text-gray-600 hover:text-blue-600 font-medium transition-colors">
                 About
               </Link>
             </li>
             <li className="mt-2 sm:mt-0">
               <Link
                 to="/contact"
-                className="rounded-xl border-2 border-blue-600 px-6 py-2 font-medium text-blue-600 hover:bg-blue-600 hover:text-white"
+                className="rounded-xl border-2 border-blue-600 px-6 py-2 font-semibold text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300"
               >
                 Contact
               </Link>
