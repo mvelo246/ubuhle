@@ -5,12 +5,14 @@ function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <header className="px-4 bg-white shadow sticky top-0 z-10">
-      <div className="relative mx-auto flex max-w-screen-lg flex-col py-4 sm:flex-row sm:items-center sm:justify-between">
-        <Link to="/" className="flex items-center text-2xl font-black">
-          <span className="mr-2 text-3xl text-blue-600">
-            <img className="w-1/3 h-1/3" src="/logo.png" alt="Logo" />
-          </span>
+    <nav className="bg-white shadow sticky top-0 z-50 w-full left-0 right-0">
+      <div className="relative mx-auto max-w-screen-xl px-4 flex flex-col py-3 sm:flex-row sm:items-center sm:justify-between">
+        <Link to="/" className="flex items-center text-2xl font-black mb-2 sm:mb-0">
+          <img 
+            className="h-10 sm:h-12 md:h-14 w-auto object-contain" 
+            src="/logo.png" 
+            alt="Logo" 
+          />
         </Link>
         <input
           className="peer hidden"
@@ -37,7 +39,7 @@ function Header() {
             />
           </svg>
         </label>
-        <nav
+        <div
           aria-label="Header Navigation"
           className={`${isMenuOpen ? 'block' : 'hidden'} pl-2 py-6 sm:block sm:py-0`}
         >
@@ -76,9 +78,9 @@ function Header() {
               </Link>
             </li>
           </ul>
-        </nav>
+        </div>
       </div>
-    </header>
+    </nav>
   )
 }
 
