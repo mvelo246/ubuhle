@@ -63,10 +63,10 @@ function NewsletterSubscription() {
   }
 
   return (
-    <section className="bg-gradient-to-br from-blue-600 to-indigo-700 py-12 sm:py-16 md:py-20 scroll-mt-20">
-      <div className="container mx-auto px-4 max-w-4xl">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+    <section className="bg-gradient-to-br from-blue-600 to-indigo-700 pt-12 sm:pt-16 md:pt-20 pb-0 scroll-mt-20">
+      <div className="container mx-auto px-4 max-w-4xl pb-8 sm:pb-10 md:pb-12">
+        <div className="text-center mb-6 sm:mb-7">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">
             Stay Updated
           </h2>
           <p className="text-lg sm:text-xl text-blue-100 max-w-2xl mx-auto">
@@ -346,7 +346,7 @@ function Home() {
       {/* Newsletter Subscription Section */}
       <NewsletterSubscription />
 
-      <Footer />
+      <Footer noTopMargin={true} />
     </>
   )
 }
