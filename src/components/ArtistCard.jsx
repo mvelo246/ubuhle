@@ -1,8 +1,17 @@
 import { Link } from 'react-router-dom'
 
-function ArtistCard({ artist }) {
+function ArtistCard({ artist, showTitleOnTop = false }) {
   return (
     <div className="group relative cursor-pointer items-center justify-center overflow-hidden transition-shadow hover:shadow-xl hover:shadow-black/30 w-full">
+      {/* Title on top - shown on Artists page */}
+      {showTitleOnTop && (
+        <div className="absolute top-0 left-0 right-0 z-10 bg-gradient-to-b from-black/80 via-black/60 to-transparent px-4 py-3">
+          <h2 className="text-lg sm:text-xl font-bold text-white text-center truncate">
+            {artist.name}
+          </h2>
+        </div>
+      )}
+      
       <div className="h-64 sm:h-80 md:h-96 w-full max-w-xs mx-auto md:max-w-none md:w-72">
         <img
           className="h-full w-full object-cover transition-transform duration-500 group-hover:rotate-3 group-hover:scale-125"
