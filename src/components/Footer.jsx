@@ -1,6 +1,6 @@
-function Footer() {
+function Footer({ noTopMargin = false }) {
   return (
-    <footer className="relative mt-12 sm:mt-16 md:mt-20 bg-gray-900 px-4 pt-6 sm:pt-8 md:pt-10 w-full pb-6 sm:pb-8 md:pb-10">
+    <footer className={`relative ${noTopMargin ? '' : 'mt-12 sm:mt-16 md:mt-20'} bg-gray-900 px-4 pt-6 sm:pt-8 md:pt-10 w-full pb-6 sm:pb-8 md:pb-10`}>
       <div className="flex justify-center space-x-4 sm:space-x-5">
         <a
           href="https://facebook.com"

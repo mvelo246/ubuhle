@@ -96,25 +96,25 @@ export const models = [
     id: 1,
     name: 'model1',
     image: 'https://www.themodelbuilders.co.uk/wp-content/uploads/2021/08/shutterstock_1795860640-scaled.jpg',
-    bio: 'Professional model',
+    bio: 'Professional model with extensive experience in fashion photography and commercial campaigns. Specializes in editorial work and brand representation. Known for versatility and ability to adapt to various creative concepts and styles.',
   },
   {
     id: 2,
     name: 'model2',
     image: '/Components/model3.jpg',
-    bio: 'Fashion model',
+    bio: 'Fashion model specializing in high-end editorial and runway shows. Works with leading fashion brands and designers. Expertise includes couture, ready-to-wear, and avant-garde fashion photography.',
   },
   {
     id: 3,
     name: 'model3',
     image: '/Components/model2.jpg',
-    bio: 'Commercial model',
+    bio: 'Commercial model with a strong portfolio in advertising and product photography. Experienced in lifestyle, beauty, and corporate campaigns. Brings authenticity and professionalism to every project.',
   },
   {
     id: 4,
     name: 'model4',
     image: '/Components/model1.jpg',
-    bio: 'Runway model',
+    bio: 'Runway model with international experience in fashion weeks and designer showcases. Known for strong presence and ability to bring designer visions to life on the catwalk.',
   },
 ]
 
