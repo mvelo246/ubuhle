@@ -11,7 +11,7 @@ function DashboardModels() {
   const [formData, setFormData] = useState({
     name: '',
     image: '',
-    bio: '',
+    bio: '',  
     gallery: [],
     socialLinks: {
       facebook: '',
@@ -19,6 +19,7 @@ function DashboardModels() {
       twitter: '',
       tiktok: '',
     },
+
   })
 
   useEffect(() => {
@@ -56,6 +57,8 @@ function DashboardModels() {
         tiktok: '',
       },
     })
+
+
     setIsModalOpen(true)
   }
 
@@ -113,6 +116,7 @@ function DashboardModels() {
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
       </div>
     )
+
   }
 
   return (
@@ -305,6 +309,30 @@ function DashboardModels() {
                     Add multiple images to the gallery. Enter URL and press Enter or click Add.
                   </p>
                 </div>
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Phone
+                </label>
+                <input
+                  type="text"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                  placeholder="+27 11 234 5678"
+                />
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
