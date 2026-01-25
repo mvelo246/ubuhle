@@ -11,6 +11,8 @@ function DashboardModels() {
   const [formData, setFormData] = useState({
     name: '',
     image: '',
+    email: '',
+    phone: '',
     bio: '',  
     gallery: [],
     socialLinks: {
@@ -19,7 +21,6 @@ function DashboardModels() {
       twitter: '',
       tiktok: '',
     },
-
   })
 
   useEffect(() => {
@@ -48,6 +49,8 @@ function DashboardModels() {
     setFormData({
       name: '',
       image: '',
+      email: '',
+      phone: '',
       bio: '',
       gallery: [],
       socialLinks: {
@@ -57,8 +60,6 @@ function DashboardModels() {
         tiktok: '',
       },
     })
-
-
     setIsModalOpen(true)
   }
 
@@ -67,6 +68,8 @@ function DashboardModels() {
     setFormData({
       name: model.name || '',
       image: model.image || '',
+      email: model.email || '',
+      phone: model.phone || '',
       bio: model.bio || '',
       gallery: model.gallery || [],
       socialLinks: {

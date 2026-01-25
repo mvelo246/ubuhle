@@ -20,6 +20,19 @@ const Model = sequelize.define(
       type: DataTypes.STRING,
       defaultValue: '',
     },
+    email: {
+      type: DataTypes.STRING,
+      defaultValue: '',
+      validate: {
+        isEmail: {
+          msg: 'Please provide a valid email address',
+        },
+      },
+    },
+    phone: {
+      type: DataTypes.STRING,
+      defaultValue: '',
+    },
     bio: {
       type: DataTypes.TEXT,
       defaultValue: '',
