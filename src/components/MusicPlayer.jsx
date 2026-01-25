@@ -110,10 +110,10 @@ function MusicPlayer({ song }) {
           {/* Song Name and Artist */}
           <div className="mb-2">
             <p className="font-semibold text-sm sm:text-base text-gray-900 truncate">
-              {song?.name || 'Umenzi'}
+              {song?.name || 'Unknown Song'}
             </p>
             <p className="text-xs sm:text-sm text-gray-500 truncate">
-              {song?.artist || 'Mzaca'}
+              {song?.artist?.name || song?.artist || 'Unknown Artist'}
             </p>
           </div>
 

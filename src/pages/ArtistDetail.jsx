@@ -1,13 +1,67 @@
-import { useParams } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import MusicPlayer from '../components/MusicPlayer'
-import { artists, songs } from '../data/mockData'
+import { artistsAPI, songsAPI } from '../services/api'
 
 function ArtistDetail() {
   const { id } = useParams()
-  const artist = artists.find((a) => a.id === parseInt(id)) || artists[0]
-  const artistSongs = songs.filter((s) => s.artistId === parseInt(id))
+  const navigate = useNavigate()
+  const [artist, setArtist] = useState(null)
+  const [artistSongs, setArtistSongs] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchArtistData()
+  }, [id])
+
+  const fetchArtistData = async () => {
+    try {
+      setLoading(true)
+      const [artistResponse, songsResponse] = await Promise.all([
+        artistsAPI.getById(id),
+        songsAPI.getByArtist(id),
+      ])
+      setArtist(artistResponse.data.data)
+      setArtistSongs(songsResponse.data.data || [])
+    } catch (error) {
+      console.error('Failed to fetch artist data:', error)
+      navigate('/artist')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (loading) {
+    return (
+      <>
+        <Header />
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        </div>
+        <Footer />
+      </>
+    )
+  }
+
+  if (!artist) {
+    return (
+      <>
+        <Header />
+        <div className="container mx-auto px-4 py-12 text-center">
+          <h1 className="text-2xl font-bold mb-4">Artist not found</h1>
+          <button
+            onClick={() => navigate('/artist')}
+            className="text-blue-600 hover:text-blue-800"
+          >
+            Go back to Artists
+          </button>
+        </div>
+        <Footer />
+      </>
+    )
+  }
 
   const handleScrollToMusic = () => {
     const element = document.getElementById('music')
@@ -76,14 +130,19 @@ function ArtistDetail() {
           {artistSongs.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {artistSongs.map((song) => (
-                <MusicPlayer key={song.id} song={song} />
+                <MusicPlayer 
+                  key={song.id} 
+                  song={{
+                    ...song,
+                    artist: song.artist?.name || artist.name,
+                  }} 
+                />
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              <MusicPlayer song={{ name: 'Umenzi', artist: artist.name, image: artist.image }} />
-              <MusicPlayer song={{ name: 'Random Song', artist: artist.name, image: artist.image }} />
-              <MusicPlayer song={{ name: 'Another Song', artist: artist.name, image: artist.image }} />
+            <div className="text-center py-12">
+              <p className="text-gray-500 text-lg mb-4">No songs available yet.</p>
+              <p className="text-gray-400 text-sm">Check back soon for new releases!</p>
             </div>
           )}
         </div>

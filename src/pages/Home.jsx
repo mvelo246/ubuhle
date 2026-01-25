@@ -6,7 +6,7 @@ import ArtistCard from '../components/ArtistCard'
 import ModelCard from '../components/ModelCard'
 import EventCard from '../components/EventCard'
 import NewsSlider from '../components/NewsSlider'
-import { artists, models, events, newsItems } from '../data/mockData'
+import { artistsAPI, modelsAPI, eventsAPI, newsAPI } from '../services/api'
 
 // Newsletter Subscription Component
 function NewsletterSubscription() {
@@ -113,7 +113,41 @@ function NewsletterSubscription() {
 }
 
 function Home() {
-  const upcomingEvents = events.filter(e => e.status === 'upcoming')
+  const [artists, setArtists] = useState([])
+  const [models, setModels] = useState([])
+  const [events, setEvents] = useState([])
+  const [newsItems, setNewsItems] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  const fetchData = async () => {
+    try {
+      setLoading(true)
+      const [artistsRes, modelsRes, eventsRes, newsRes] = await Promise.all([
+        artistsAPI.getAll().catch(() => ({ data: { data: [] } })),
+        modelsAPI.getAll().catch(() => ({ data: { data: [] } })),
+        eventsAPI.getUpcoming().catch(() => ({ data: { data: [] } })),
+        newsAPI.getAll().catch(() => ({ data: { data: [] } })),
+      ])
+      setArtists(artistsRes.data.data || [])
+      setModels(modelsRes.data.data || [])
+      setEvents(eventsRes.data.data || [])
+      setNewsItems(newsRes.data.data || [])
+    } catch (error) {
+      console.error('Failed to fetch data:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const upcomingEvents = events.filter(e => {
+    if (!e.date) return false
+    const eventDate = new Date(e.date)
+    return eventDate >= new Date()
+  })
   
   // Artists auto-slide state
   const [artistIndex, setArtistIndex] = useState(0)
@@ -190,6 +224,19 @@ function Home() {
     
     return () => clearInterval(interval)
   }, [upcomingEvents.length])
+
+  if (loading) {
+    return (
+      <>
+        <Header />
+        <Hero />
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        </div>
+        <Footer />
+      </>
+    )
+  }
 
   return (
     <>

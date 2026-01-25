@@ -1,20 +1,70 @@
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import ImageGallery from '../components/ImageGallery'
-import { models, modelGalleryImages } from '../data/mockData'
+import { modelsAPI } from '../services/api'
 import { useState, useEffect } from 'react'
 
 function ModelDetail() {
   const { id } = useParams()
-  const model = models.find((m) => m.id === parseInt(id)) || models[0]
+  const navigate = useNavigate()
+  const [model, setModel] = useState(null)
+  const [loading, setLoading] = useState(true)
   const [isGalleryOpen, setIsGalleryOpen] = useState(false)
   const [activeImageIndex, setActiveImageIndex] = useState(0)
-  
-  // Combine model image with gallery images for auto-rotation
-  const allImages = [model.image, ...modelGalleryImages]
   const [currentMainImageIndex, setCurrentMainImageIndex] = useState(0)
   const [imageOpacity, setImageOpacity] = useState(1)
+
+  useEffect(() => {
+    fetchModel()
+  }, [id])
+
+  const fetchModel = async () => {
+    try {
+      setLoading(true)
+      const response = await modelsAPI.getById(id)
+      setModel(response.data.data)
+    } catch (error) {
+      console.error('Failed to fetch model:', error)
+      navigate('/model')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (loading) {
+    return (
+      <>
+        <Header />
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+        </div>
+        <Footer />
+      </>
+    )
+  }
+
+  if (!model) {
+    return (
+      <>
+        <Header />
+        <div className="container mx-auto px-4 py-12 text-center">
+          <h1 className="text-2xl font-bold mb-4">Model not found</h1>
+          <button
+            onClick={() => navigate('/model')}
+            className="text-purple-600 hover:text-purple-800"
+          >
+            Go back to Models
+          </button>
+        </div>
+        <Footer />
+      </>
+    )
+  }
+
+  // Combine model image with gallery images for auto-rotation
+  const galleryImages = model.gallery || []
+  const allImages = model.image ? [model.image, ...galleryImages] : galleryImages
 
   // Auto-rotate main image every 6 seconds with fade effect
   useEffect(() => {
@@ -82,33 +132,39 @@ function ModelDetail() {
 
       <section className="w-full h-full select-none bg-gray-50 py-12">
         <div className="max-w-6xl mx-auto px-4 duration-1000 delay-300 select-none ease">
-          <ul id="gallery" className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
-            {modelGalleryImages.slice(0, 12).map((img, index) => (
-              <li key={index} className="w-full">
-                <img
-                  onClick={() => handleImageClick(index)}
-                  src={img}
-                  alt={`Gallery ${index + 1}`}
-                  className="object-cover select-none w-full h-full bg-gray-200 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 cursor-zoom-in aspect-[5/6] hover:scale-105"
-                />
-              </li>
-            ))}
-          </ul>
+          {galleryImages.length > 0 ? (
+            <ul id="gallery" className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
+              {galleryImages.map((img, index) => (
+                <li key={index} className="w-full">
+                  <img
+                    onClick={() => handleImageClick(index)}
+                    src={img}
+                    alt={`Gallery ${index + 1}`}
+                    className="object-cover select-none w-full h-full bg-gray-200 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 cursor-zoom-in aspect-[5/6] hover:scale-105"
+                  />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-gray-500">No gallery images available.</p>
+            </div>
+          )}
         </div>
 
-        {isGalleryOpen && (
+        {isGalleryOpen && galleryImages.length > 0 && (
           <ImageGalleryModal
-            images={modelGalleryImages}
+            images={galleryImages}
             activeIndex={activeImageIndex}
             onClose={() => setIsGalleryOpen(false)}
             onNext={() =>
               setActiveImageIndex((prev) =>
-                prev === modelGalleryImages.length - 1 ? 0 : prev + 1
+                prev === galleryImages.length - 1 ? 0 : prev + 1
               )
             }
             onPrev={() =>
               setActiveImageIndex((prev) =>
-                prev === 0 ? modelGalleryImages.length - 1 : prev - 1
+                prev === 0 ? galleryImages.length - 1 : prev - 1
               )
             }
           />

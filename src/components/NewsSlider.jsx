@@ -87,7 +87,7 @@ function NewsSlider({ newsItems }) {
                   {/* Content */}
                   <div className="relative z-10 px-6 sm:px-8 md:px-12 text-center max-w-3xl">
                     <div className="text-sm sm:text-base text-blue-200 mb-2 font-medium">
-                      {item.date}
+                      {item.date ? new Date(item.date).toLocaleDateString() : ''}
                     </div>
                     <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
                       {item.title}

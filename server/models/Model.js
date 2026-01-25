@@ -22,10 +22,16 @@ const Model = sequelize.define(
     },
     email: {
       type: DataTypes.STRING,
+      allowNull: false,
       defaultValue: '',
       validate: {
-        isEmail: {
-          msg: 'Please provide a valid email address',
+        isValidEmail(value) {
+          if (value && value.trim() !== '') {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+            if (!emailRegex.test(value)) {
+              throw new Error('Please provide a valid email address')
+            }
+          }
         },
       },
     },

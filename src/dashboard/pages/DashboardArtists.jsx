@@ -10,6 +10,7 @@ function DashboardArtists() {
   const [selectedArtist, setSelectedArtist] = useState(null)
   const [songs, setSongs] = useState([])
   const [editingSong, setEditingSong] = useState(null)
+  const [isAddingSong, setIsAddingSong] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [loading, setLoading] = useState(true)
   const [songFormData, setSongFormData] = useState({
@@ -135,6 +136,7 @@ function DashboardArtists() {
 
   const handleAddSong = () => {
     setEditingSong(null)
+    setIsAddingSong(true)
     setSongFormData({
       name: '',
       image: '',
@@ -145,6 +147,7 @@ function DashboardArtists() {
 
   const handleEditSong = (song) => {
     setEditingSong(song)
+    setIsAddingSong(false)
     setSongFormData({
       name: song.name || '',
       image: song.image || '',
@@ -185,6 +188,7 @@ function DashboardArtists() {
       }
       
       setEditingSong(null)
+      setIsAddingSong(false)
       setSongFormData({ name: '', image: '', audioUrl: '', duration: 0 })
       const response = await songsAPI.getByArtist(selectedArtist.id)
       setSongs(response.data.data || [])
@@ -450,6 +454,7 @@ function DashboardArtists() {
                   setSelectedArtist(null)
                   setSongs([])
                   setEditingSong(null)
+                  setIsAddingSong(false)
                 }}
                 className="text-gray-500 hover:text-gray-700"
               >
@@ -458,7 +463,7 @@ function DashboardArtists() {
             </div>
 
             {/* Add/Edit Song Form */}
-            {editingSong !== null && (
+            {(editingSong !== null || isAddingSong) && (
               <div className="mb-6 p-4 bg-gray-50 rounded-lg">
                 <h3 className="text-lg font-semibold mb-3">
                   {editingSong ? 'Edit Song' : 'Add New Song'}
@@ -518,6 +523,7 @@ function DashboardArtists() {
                       type="button"
                       onClick={() => {
                         setEditingSong(null)
+                        setIsAddingSong(false)
                         setSongFormData({ name: '', image: '', audioUrl: '', duration: 0 })
                       }}
                       className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
@@ -536,18 +542,18 @@ function DashboardArtists() {
             )}
 
             {/* Songs List */}
-            <div className="mb-4">
-              <div className="flex justify-between items-center mb-3">
-                <h3 className="text-lg font-semibold">Songs ({songs.length})</h3>
-                {editingSong === null && (
-                  <button
-                    onClick={handleAddSong}
-                    className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
-                  >
-                    + Add Song
-                  </button>
-                )}
-              </div>
+              <div className="mb-4">
+                <div className="flex justify-between items-center mb-3">
+                  <h3 className="text-lg font-semibold">Songs ({songs.length})</h3>
+                  {!isAddingSong && editingSong === null && (
+                    <button
+                      onClick={handleAddSong}
+                      className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+                    >
+                      + Add Song
+                    </button>
+                  )}
+                </div>
               {songs.length === 0 ? (
                 <p className="text-gray-500 text-center py-4">No songs yet. Add your first song!</p>
               ) : (

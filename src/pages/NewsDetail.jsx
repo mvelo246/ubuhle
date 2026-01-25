@@ -1,11 +1,54 @@
-import { useParams, Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { newsItems } from '../data/mockData'
+import { newsAPI } from '../services/api'
 
 function NewsDetail() {
   const { id } = useParams()
-  const news = newsItems.find((n) => n.id === parseInt(id))
+  const navigate = useNavigate()
+  const [news, setNews] = useState(null)
+  const [relatedNews, setRelatedNews] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchNewsData()
+  }, [id])
+
+  const fetchNewsData = async () => {
+    try {
+      setLoading(true)
+      const [newsResponse, allNewsResponse] = await Promise.all([
+        newsAPI.getById(id),
+        newsAPI.getAll().catch(() => ({ data: { data: [] } })),
+      ])
+      setNews(newsResponse.data.data)
+      // Get related news (excluding current news)
+      const allNews = allNewsResponse.data.data || []
+      setRelatedNews(allNews.filter((n) => n.id !== parseInt(id)).slice(0, 3))
+    } catch (error) {
+      console.error('Failed to fetch news:', error)
+      navigate('/news')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (loading) {
+    return (
+      <>
+        <Header />
+        <div className="bg-white py-8 sm:py-12">
+          <div className="container mx-auto px-4">
+            <div className="flex justify-center items-center h-64">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-600"></div>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </>
+    )
+  }
 
   if (!news) {
     return (
@@ -23,8 +66,6 @@ function NewsDetail() {
       </>
     )
   }
-
-  const relatedNews = newsItems.filter((n) => n.id !== parseInt(id)).slice(0, 3)
 
   return (
     <>
@@ -56,7 +97,7 @@ function NewsDetail() {
             {/* News Content */}
             <article>
               <div className="mb-6">
-                <div className="text-sm sm:text-base text-gray-500 mb-3">{news.date}</div>
+                <div className="text-sm sm:text-base text-gray-500 mb-3">{new Date(news.date).toLocaleDateString()}</div>
                 <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-black">{news.title}</h1>
               </div>
 
@@ -104,7 +145,7 @@ function NewsDetail() {
                       />
                     )}
                     <div className="p-4 sm:p-6">
-                      <div className="text-sm sm:text-base text-gray-500 mb-2">{item.date}</div>
+                      <div className="text-sm sm:text-base text-gray-500 mb-2">{new Date(item.date).toLocaleDateString()}</div>
                       <h3 className="text-xl sm:text-2xl font-bold mb-3 text-gray-800">{item.title}</h3>
                       <p className="text-gray-600 text-sm sm:text-base line-clamp-3">{item.description}</p>
                     </div>
