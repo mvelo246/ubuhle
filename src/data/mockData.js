@@ -15,6 +15,7 @@ export const artists = [
     image: 'https://mg.co.za/wp-content/uploads/2023/07/K.O-Pic-Individual-1-665x1000.jpg',
     bio: 'Musician and performer',
     email: 'artist1@gmail.com',
+    phone: '+27 12 456 7890',
   },
   {
     id: 3,
@@ -22,6 +23,7 @@ export const artists = [
     image: 'https://www.musicinafrica.net/sites/default/files/styles/profile_images_large/public/images/artist_profile/201706/xabainsofarsoundglasgow.jpg?itok=Z2NW6_fx',
     bio: 'Recording artist',
     email: 'artist2@gmail.com',
+    phone: '+27 12 567 8901',
   },
   {
     id: 4,
@@ -29,6 +31,7 @@ export const artists = [
     image: 'https://lh3.googleusercontent.com/UfX0LWenf_uHM1ZrpHTeHXtp36ItZyDeaOxhdtjrxI09o6YxRq-Y9n4rSSgmcWfRsevW58_bAcno-D73XvpuoVGeDmCnIVTB6494gtZkOtG1iXxN=s750',
     bio: 'Professional musician',
     email: 'artist3@gmail.com',
+    phone: '+27 12 678 9012',
   },
   {
     id: 5,
@@ -36,6 +39,7 @@ export const artists = [
     image: '/th.jpg',
     bio: 'Upcoming talented artist',
     email: 'random@gmail.com',
+    phone: '+27 12 789 0123',
   },
 ]
 
@@ -97,24 +101,32 @@ export const models = [
     name: 'model1',
     image: 'https://www.themodelbuilders.co.uk/wp-content/uploads/2021/08/shutterstock_1795860640-scaled.jpg',
     bio: 'Professional model with extensive experience in fashion photography and commercial campaigns. Specializes in editorial work and brand representation. Known for versatility and ability to adapt to various creative concepts and styles.',
+    email: 'model1@gmail.com',
+    phone: '+27 11 234 5678',
   },
   {
     id: 2,
     name: 'model2',
     image: '/Components/model3.jpg',
     bio: 'Fashion model specializing in high-end editorial and runway shows. Works with leading fashion brands and designers. Expertise includes couture, ready-to-wear, and avant-garde fashion photography.',
+    email: 'model2@gmail.com',
+    phone: '+27 11 345 6789',
   },
   {
     id: 3,
     name: 'model3',
     image: '/Components/model2.jpg',
     bio: 'Commercial model with a strong portfolio in advertising and product photography. Experienced in lifestyle, beauty, and corporate campaigns. Brings authenticity and professionalism to every project.',
+    email: 'model3@gmail.com',
+    phone: '+27 11 456 7890',
   },
   {
     id: 4,
     name: 'model4',
     image: '/Components/model1.jpg',
     bio: 'Runway model with international experience in fashion weeks and designer showcases. Known for strong presence and ability to bring designer visions to life on the catwalk.',
+    email: 'model4@gmail.com',
+    phone: '+27 11 567 8901',
   },
 ]
 
@@ -217,5 +229,7 @@ export const modelGalleryImages = [
   'https://images.unsplash.com/photo-1529655683826-aba9b3e77383?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1965&q=80',
   'https://images.pexels.com/photos/4256852/pexels-photo-4256852.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
   'https://images.unsplash.com/photo-1541795083-1b160cf4f3d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80',
+  'https://images.pexels.com/photos/1181519/pexels-photo-1181519.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80',
 ]
 
