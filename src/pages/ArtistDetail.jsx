@@ -21,20 +21,13 @@ function ArtistDetail() {
       <Header />
       
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 min-h-[600px] sm:min-h-[700px] flex items-center overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}></div>
-        </div>
-        
+      <div className="relative min-h-[600px] sm:min-h-[700px] flex items-center overflow-hidden" style={{ backgroundColor: '#48545a' }}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-12 sm:py-16">
           <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
             {/* Image Section */}
             <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-2xl transform rotate-3 opacity-75"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/30 to-purple-500/30 rounded-2xl transform rotate-3"></div>
                 <img 
                   src={artist.image} 
                   alt={artist.name} 
@@ -45,10 +38,11 @@ function ArtistDetail() {
             
             {/* Content Section */}
             <div className="w-full lg:w-1/2 text-center lg:text-left">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 drop-shadow-lg">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
                 {artist.name}
               </h1>
-              <p className="text-lg sm:text-xl text-white/90 mb-6 sm:mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+              <div className="h-1 w-20 bg-blue-400 mx-auto lg:mx-0 mb-6"></div>
+              <p className="text-lg sm:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
                 {artist.bio}
               </p>
               <button

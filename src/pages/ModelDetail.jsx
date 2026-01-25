@@ -42,14 +42,14 @@ function ModelDetail() {
   return (
     <>
       <Header />
-      <div className="flex pt-20 pb-12 px-6 md:px-20 items-center justify-center bg-gradient-to-br from-gray-50 to-white min-h-[70vh]">
+      <div className="flex pt-20 pb-12 px-6 md:px-20 items-center justify-center min-h-[70vh]" style={{ backgroundColor: '#48545a' }}>
         <div className="flex flex-col gap-8 md:flex-row items-center max-w-7xl w-full">
           <div className="w-full md:w-1/2 lg:pr-12">
-            <h1 className="text-4xl lg:text-5xl xl:text-6xl text-center md:text-left text-gray-900 leading-tight font-bold mb-4">
+            <h1 className="text-4xl lg:text-5xl xl:text-6xl text-center md:text-left text-white leading-tight font-bold mb-4">
               {model.name}
             </h1>
-            <div className="h-1 w-20 bg-blue-600 mx-auto md:mx-0 mb-6"></div>
-            <p className="text-lg lg:text-xl text-center md:text-left text-gray-700 font-light leading-relaxed">
+            <div className="h-1 w-20 bg-blue-400 mx-auto md:mx-0 mb-6"></div>
+            <p className="text-lg lg:text-xl text-center md:text-left text-gray-200 font-light leading-relaxed">
               {model.bio || "I'm not just building a career; I'm building a legacy, breaking boundaries, and proving that strength and grace are the ultimate power duo."}
             </p>
           </div>
@@ -69,7 +69,7 @@ function ModelDetail() {
         </div>
       </div>
 
-      <section className="px-4 py-16 mx-auto max-w-7xl">
+      <section className="px-4 py-16 mx-auto max-w-7xl bg-white">
         <div className="w-full mx-auto text-center">
           <h2 className="mb-4 text-3xl md:text-4xl font-bold leading-tight text-gray-900">
             Portfolio Gallery
