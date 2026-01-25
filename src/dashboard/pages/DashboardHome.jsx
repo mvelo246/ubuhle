@@ -1,18 +1,49 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import StatsCard from '../components/StatsCard'
-import { artists, models, events } from '../../data/mockData'
+import { dashboardAPI } from '../../services/api'
+import { toast } from 'react-toastify'
 
 function DashboardHome() {
-  const totalArtists = artists.length
-  const totalModels = models.length
-  const totalEvents = events.length
-  const upcomingEvents = events.filter(e => e.status === 'upcoming').length
+  const [stats, setStats] = useState({
+    totalArtists: 0,
+    totalModels: 0,
+    totalEvents: 0,
+    upcomingEvents: 0,
+    totalSongs: 0,
+    totalNews: 0,
+  })
+  const [recentItems, setRecentItems] = useState([])
+  const [loading, setLoading] = useState(true)
 
-  const recentItems = [
-    ...artists.slice(0, 3).map(a => ({ ...a, type: 'artist' })),
-    ...models.slice(0, 2).map(m => ({ ...m, type: 'model' })),
-    ...events.slice(0, 2).map(e => ({ ...e, type: 'event' })),
-  ].sort((a, b) => b.id - a.id).slice(0, 5)
+  useEffect(() => {
+    fetchDashboardData()
+  }, [])
+
+  const fetchDashboardData = async () => {
+    try {
+      setLoading(true)
+      const [statsResponse, recentResponse] = await Promise.all([
+        dashboardAPI.getStats(),
+        dashboardAPI.getRecent(),
+      ])
+      setStats(statsResponse.data.data)
+      setRecentItems(recentResponse.data.data)
+    } catch (error) {
+      toast.error('Failed to fetch dashboard data')
+      console.error(error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    )
+  }
 
   return (
     <div>
@@ -25,25 +56,25 @@ function DashboardHome() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <StatsCard
           title="Total Artists"
-          value={totalArtists}
+          value={stats.totalArtists}
           icon="🎤"
           color="blue"
         />
         <StatsCard
           title="Total Models"
-          value={totalModels}
+          value={stats.totalModels}
           icon="👤"
           color="purple"
         />
         <StatsCard
           title="Total Events"
-          value={totalEvents}
+          value={stats.totalEvents}
           icon="🎉"
           color="green"
         />
         <StatsCard
           title="Upcoming Events"
-          value={upcomingEvents}
+          value={stats.upcomingEvents}
           icon="📅"
           color="orange"
         />
@@ -71,6 +102,12 @@ function DashboardHome() {
           >
             Add Event
           </Link>
+          <Link
+            to="/dashboard/news"
+            className="bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600 transition"
+          >
+            Add News
+          </Link>
         </div>
       </div>
 
@@ -88,26 +125,34 @@ function DashboardHome() {
                   Name
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  ID
+                  Created
                 </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {recentItems.map((item) => (
-                <tr key={`${item.type}-${item.id}`}>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
-                      {item.type}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {item.name || item.title}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {item.id}
+              {recentItems.length === 0 ? (
+                <tr>
+                  <td colSpan="3" className="px-6 py-4 text-center text-gray-500">
+                    No recent activity
                   </td>
                 </tr>
-              ))}
+              ) : (
+                recentItems.map((item, index) => (
+                  <tr key={`${item.type}-${item.id || index}`}>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
+                        {item.type}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      {item.name || item.title}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {new Date(item.createdAt).toLocaleDateString()}
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
@@ -117,4 +162,3 @@ function DashboardHome() {
 }
 
 export default DashboardHome
-

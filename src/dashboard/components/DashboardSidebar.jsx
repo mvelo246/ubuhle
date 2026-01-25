@@ -8,6 +8,7 @@ function DashboardSidebar() {
     { path: '/dashboard/artists', label: 'Artists', icon: '🎤' },
     { path: '/dashboard/models', label: 'Models', icon: '👤' },
     { path: '/dashboard/events', label: 'Events', icon: '🎉' },
+    { path: '/dashboard/news', label: 'News', icon: '📰' },
   ]
 
   return (

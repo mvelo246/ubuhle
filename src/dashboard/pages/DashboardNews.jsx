@@ -1,78 +1,74 @@
 import { useState, useEffect } from 'react'
-import { eventsAPI } from '../../services/api'
+import { newsAPI } from '../../services/api'
 import { toast } from 'react-toastify'
 
-function DashboardEvents() {
-  const [events, setEvents] = useState([])
+function DashboardNews() {
+  const [news, setNews] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [editingEvent, setEditingEvent] = useState(null)
+  const [editingNews, setEditingNews] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [loading, setLoading] = useState(true)
   const [formData, setFormData] = useState({
     title: '',
-    date: '',
-    image: '',
     description: '',
-    status: 'upcoming',
-    location: '',
+    image: '',
+    date: new Date().toISOString().split('T')[0],
+    link: '',
   })
 
   useEffect(() => {
-    fetchEvents()
+    fetchNews()
   }, [])
 
-  const fetchEvents = async () => {
+  const fetchNews = async () => {
     try {
       setLoading(true)
-      const response = await eventsAPI.getAll()
-      setEvents(response.data.data)
+      const response = await newsAPI.getAll()
+      setNews(response.data.data)
     } catch (error) {
-      toast.error('Failed to fetch events')
+      toast.error('Failed to fetch news')
       console.error(error)
     } finally {
       setLoading(false)
     }
   }
 
-  const filteredEvents = events.filter((event) =>
-    event.title.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredNews = news.filter((item) =>
+    item.title.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
   const handleAdd = () => {
-    setEditingEvent(null)
+    setEditingNews(null)
     setFormData({
       title: '',
-      date: '',
-      image: '',
       description: '',
-      status: 'upcoming',
-      location: '',
+      image: '',
+      date: new Date().toISOString().split('T')[0],
+      link: '',
     })
     setIsModalOpen(true)
   }
 
-  const handleEdit = (event) => {
-    setEditingEvent(event)
-    const eventDate = event.date ? new Date(event.date).toISOString().split('T')[0] : ''
+  const handleEdit = (item) => {
+    setEditingNews(item)
     setFormData({
-      title: event.title || '',
-      date: eventDate,
-      image: event.image || '',
-      description: event.description || '',
-      status: event.status || 'upcoming',
-      location: event.location || '',
+      title: item.title || '',
+      description: item.description || '',
+      image: item.image || '',
+      date: item.date ? new Date(item.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
+      link: item.link || '',
     })
     setIsModalOpen(true)
   }
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this event?')) {
+    if (window.confirm('Are you sure you want to delete this news item?')) {
       try {
-        await eventsAPI.delete(id)
-        toast.success('Event deleted successfully')
-        fetchEvents()
+        await newsAPI.delete(id)
+        toast.success('News deleted successfully')
+        fetchNews()
       } catch (error) {
-        toast.error('Failed to delete event')
+        toast.error('Failed to delete news')
         console.error(error)
       }
     }
@@ -81,35 +77,19 @@ function DashboardEvents() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const submitData = {
-        ...formData,
-        date: new Date(formData.date),
-      }
-      if (editingEvent) {
-        await eventsAPI.update(editingEvent.id, submitData)
-        toast.success('Event updated successfully')
+      if (editingNews) {
+        await newsAPI.update(editingNews.id, formData)
+        toast.success('News updated successfully')
       } else {
-        await eventsAPI.create(submitData)
-        toast.success('Event created successfully')
+        await newsAPI.create(formData)
+        toast.success('News created successfully')
       }
       setIsModalOpen(false)
-      fetchEvents()
+      fetchNews()
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to save event')
+      toast.error(error.response?.data?.message || 'Failed to save news')
       console.error(error)
     }
-  }
-
-  const getStatusBadge = (status) => {
-    return status === 'upcoming' ? (
-      <span className="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-        Upcoming
-      </span>
-    ) : (
-      <span className="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">
-        Past
-      </span>
-    )
   }
 
   if (loading) {
@@ -123,19 +103,19 @@ function DashboardEvents() {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-800">Events Management</h1>
+        <h1 className="text-3xl font-bold text-gray-800">News Management</h1>
         <button
           onClick={handleAdd}
           className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition"
         >
-          Add Event
+          Add News
         </button>
       </div>
 
       <div className="mb-6">
         <input
           type="text"
-          placeholder="Search events..."
+          placeholder="Search news..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full md:w-1/3 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
@@ -156,51 +136,45 @@ function DashboardEvents() {
                 Date
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Status
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Actions
               </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {filteredEvents.length === 0 ? (
+            {filteredNews.length === 0 ? (
               <tr>
-                <td colSpan="5" className="px-6 py-4 text-center text-gray-500">
-                  No events found
+                <td colSpan="4" className="px-6 py-4 text-center text-gray-500">
+                  No news found
                 </td>
               </tr>
             ) : (
-              filteredEvents.map((event) => (
-                <tr key={event.id}>
+              filteredNews.map((item) => (
+                <tr key={item.id}>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <img
-                      src={event.image || '/logo.png'}
-                      alt={event.title}
+                      src={item.image || '/logo.png'}
+                      alt={item.title}
                       className="h-12 w-12 rounded object-cover"
                       onError={(e) => {
                         e.target.src = '/logo.png'
                       }}
                     />
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {event.title}
+                  <td className="px-6 py-4 text-sm font-medium text-gray-900 max-w-xs truncate">
+                    {item.title}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {new Date(event.date).toLocaleDateString()}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {getStatusBadge(event.status)}
+                    {new Date(item.date).toLocaleDateString()}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                     <button
-                      onClick={() => handleEdit(event)}
+                      onClick={() => handleEdit(item)}
                       className="text-green-600 hover:text-green-900"
                     >
                       Edit
                     </button>
                     <button
-                      onClick={() => handleDelete(event.id)}
+                      onClick={() => handleDelete(item.id)}
                       className="text-red-600 hover:text-red-900"
                     >
                       Delete
@@ -217,7 +191,7 @@ function DashboardEvents() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
             <h2 className="text-2xl font-bold mb-4">
-              {editingEvent ? 'Edit Event' : 'Add Event'}
+              {editingNews ? 'Edit News' : 'Add News'}
             </h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
@@ -229,6 +203,29 @@ function DashboardEvents() {
                   required
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Description *
+                </label>
+                <textarea
+                  required
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                  rows="4"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Image URL
+                </label>
+                <input
+                  type="text"
+                  value={formData.image}
+                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
                 />
               </div>
@@ -246,48 +243,14 @@ function DashboardEvents() {
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Image URL
+                  Link (Optional)
                 </label>
                 <input
-                  type="text"
-                  value={formData.image}
-                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                  type="url"
+                  value={formData.link}
+                  onChange={(e) => setFormData({ ...formData, link: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Location
-                </label>
-                <input
-                  type="text"
-                  value={formData.location}
-                  onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Status
-                </label>
-                <select
-                  value={formData.status}
-                  onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-                >
-                  <option value="upcoming">Upcoming</option>
-                  <option value="past">Past</option>
-                </select>
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Description
-                </label>
-                <textarea
-                  value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-                  rows="4"
+                  placeholder="https://..."
                 />
               </div>
               <div className="flex justify-end space-x-2">
@@ -302,7 +265,7 @@ function DashboardEvents() {
                   type="submit"
                   className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
                 >
-                  {editingEvent ? 'Update' : 'Add'}
+                  {editingNews ? 'Update' : 'Add'}
                 </button>
               </div>
             </form>
@@ -313,4 +276,4 @@ function DashboardEvents() {
   )
 }
 
-export default DashboardEvents
+export default DashboardNews
