@@ -16,7 +16,7 @@ function DashboardArtists() {
   const [songFormData, setSongFormData] = useState({
     name: '',
     image: '',
-    audioUrl: '',
+    youtubeUrl: '',
     duration: 0,
   })
   const [formData, setFormData] = useState({
@@ -140,7 +140,7 @@ function DashboardArtists() {
     setSongFormData({
       name: '',
       image: '',
-      audioUrl: '',
+      youtubeUrl: '',
       duration: 0,
     })
   }
@@ -151,7 +151,7 @@ function DashboardArtists() {
     setSongFormData({
       name: song.name || '',
       image: song.image || '',
-      audioUrl: song.audioUrl || '',
+      youtubeUrl: song.youtubeUrl || '',
       duration: song.duration || 0,
     })
   }
@@ -189,7 +189,7 @@ function DashboardArtists() {
       
       setEditingSong(null)
       setIsAddingSong(false)
-      setSongFormData({ name: '', image: '', audioUrl: '', duration: 0 })
+      setSongFormData({ name: '', image: '', youtubeUrl: '', duration: 0 })
       const response = await songsAPI.getByArtist(selectedArtist.id)
       setSongs(response.data.data || [])
     } catch (error) {
@@ -507,15 +507,15 @@ function DashboardArtists() {
                   </div>
                   <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Audio URL *
+                      YouTube URL *
                     </label>
                     <input
                       type="text"
                       required
-                      value={songFormData.audioUrl}
-                      onChange={(e) => setSongFormData({ ...songFormData, audioUrl: e.target.value })}
+                      value={songFormData.youtubeUrl}
+                      onChange={(e) => setSongFormData({ ...songFormData, youtubeUrl: e.target.value })}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                      placeholder="https://..."
+                      placeholder="https://www.youtube.com/watch?v=..."
                     />
                   </div>
                   <div className="flex justify-end space-x-2">
@@ -524,7 +524,7 @@ function DashboardArtists() {
                       onClick={() => {
                         setEditingSong(null)
                         setIsAddingSong(false)
-                        setSongFormData({ name: '', image: '', audioUrl: '', duration: 0 })
+                        setSongFormData({ name: '', image: '', youtubeUrl: '', duration: 0 })
                       }}
                       className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
                     >
