@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import MusicPlayer from '../components/MusicPlayer'
+import VideoPlayer from '../components/VideoPlayer'
 import { artistsAPI, songsAPI } from '../services/api'
 
 function ArtistDetail() {
@@ -130,7 +130,7 @@ function ArtistDetail() {
           {artistSongs.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {artistSongs.map((song) => (
-                <MusicPlayer 
+                <VideoPlayer 
                   key={song.id} 
                   song={{
                     ...song,

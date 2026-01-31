@@ -51,7 +51,9 @@ export const songs = [
     artist: 'Mzaca',
     artistId: 1,
     image: '/th.jpg',
+
     youtubeUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+
   },
   {
     id: 2,
@@ -59,7 +61,9 @@ export const songs = [
     artist: 'Mzaca',
     artistId: 1,
     image: '/th.jpg',
+
     youtubeUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+
   },
   {
     id: 3,
@@ -67,7 +71,9 @@ export const songs = [
     artist: 'Random Artist',
     artistId: 5,
     image: '/th.jpg',
+
     youtubeUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+
   },
   {
     id: 4,
@@ -75,7 +81,9 @@ export const songs = [
     artist: 'Artist1',
     artistId: 2,
     image: 'https://mg.co.za/wp-content/uploads/2023/07/K.O-Pic-Individual-1-665x1000.jpg',
+
     youtubeUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+
   },
   {
     id: 5,
@@ -83,7 +91,9 @@ export const songs = [
     artist: 'Artist2',
     artistId: 3,
     image: 'https://www.musicinafrica.net/sites/default/files/styles/profile_images_large/public/images/artist_profile/201706/xabainsofarsoundglasgow.jpg?itok=Z2NW6_fx',
+
     youtubeUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+
   },
   {
     id: 6,
@@ -91,7 +101,9 @@ export const songs = [
     artist: 'Artist3',
     artistId: 4,
     image: 'https://lh3.googleusercontent.com/UfX0LWenf_uHM1ZrpHTeHXtp36ItZyDeaOxhdtjrxI09o6YxRq-Y9n4rSSgmcWfRsevW58_bAcno-D73XvpuoVGeDmCnIVTB6494gtZkOtG1iXxN=s750',
+
     youtubeUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+
   },
 ]
 

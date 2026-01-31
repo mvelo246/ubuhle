@@ -469,45 +469,21 @@ function DashboardArtists() {
                   {editingSong ? 'Edit Song' : 'Add New Song'}
                 </h3>
                 <form onSubmit={handleSubmitSong}>
-                  <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Song Name *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={songFormData.name}
-                        onChange={(e) => setSongFormData({ ...songFormData, name: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Duration (seconds)
-                      </label>
-                      <input
-                        type="number"
-                        value={songFormData.duration}
-                        onChange={(e) => setSongFormData({ ...songFormData, duration: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                  </div>
                   <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Image URL
+                      Song Name *
                     </label>
                     <input
                       type="text"
-                      value={songFormData.image}
-                      onChange={(e) => setSongFormData({ ...songFormData, image: e.target.value })}
+                      required
+                      value={songFormData.name}
+                      onChange={(e) => setSongFormData({ ...songFormData, name: e.target.value })}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      YouTube URL *
+                      Video URL *
                     </label>
                     <input
                       type="text"
