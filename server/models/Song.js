@@ -28,7 +28,9 @@ const Song = sequelize.define(
       type: DataTypes.STRING,
       defaultValue: '',
     },
-    videoUrl: {
+
+    youtubeUrl: {
+
       type: DataTypes.STRING,
       allowNull: false,
       validate: {

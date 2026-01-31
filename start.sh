@@ -38,14 +38,14 @@ cleanup() {
 trap cleanup INT TERM EXIT
 
 # Start backend server
-echo -e "${BLUE}📦 Starting backend server (port 5000)...${NC}"
+echo -e "${BLUE}📦 Starting backend server (port 5001)...${NC}"
 cd "$SCRIPT_DIR/server"
 npm run dev &
 BACKEND_PID=$!
 cd "$SCRIPT_DIR"
 
 # Wait a bit for backend to start
-sleep 3
+sleep 5
 
 # Start frontend server
 echo -e "${BLUE}⚛️  Starting frontend server (port 5173)...${NC}"
@@ -54,9 +54,9 @@ FRONTEND_PID=$!
 
 echo -e "\n${GREEN}✅ Both servers are starting!${NC}\n"
 echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${GREEN}  Backend:  http://localhost:5000${NC}"
+echo -e "${GREEN}  Backend:  http://localhost:5001${NC}"
 echo -e "${GREEN}  Frontend: http://localhost:5173${NC}"
-echo -e "${GREEN}  API:      http://localhost:5000/api${NC}"
+echo -e "${GREEN}  API:      http://localhost:5001/api${NC}"
 echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\n"
 echo -e "${YELLOW}Press Ctrl+C to stop both servers${NC}\n"
 
