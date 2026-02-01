@@ -172,21 +172,17 @@ function ModelDetail() {
         )}
       </section>
 
-      {/* Booking & Contact Section */}
+      {/* Contact Section */}
       <div className="bg-white py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-xl p-8 sm:p-10 lg:p-12">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-                {/* Booking Section */}
+                {/* Contact Section */}
                 <div>
                   <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">
                     Book {model.name}
                   </h2>
-                  <div className="mb-6 p-4 bg-white rounded-xl shadow-md">
-                    <BookingForm type="model" talentId={model.id} talentName={model.name} />
-                  </div>
-                  <p className="text-sm text-gray-600 mb-4">Or contact directly:</p>
                   <div className="space-y-4">
                     {(model.email || model.phone) ? (
                       <>
