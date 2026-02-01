@@ -8,6 +8,7 @@ function DashboardModels() {
   const [editingModel, setEditingModel] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [loading, setLoading] = useState(true)
+  const [galleryInput, setGalleryInput] = useState('')
   const [formData, setFormData] = useState({
     name: '',
     image: '',
@@ -27,9 +28,9 @@ function DashboardModels() {
     fetchModels()
   }, [])
 
-  const fetchModels = async () => {
+  const fetchModels = async (showLoading = true) => {
     try {
-      setLoading(true)
+      if (showLoading) setLoading(true)
       const response = await modelsAPI.getAll()
       setModels(response.data.data)
     } catch (error) {
@@ -46,6 +47,7 @@ function DashboardModels() {
 
   const handleAdd = () => {
     setEditingModel(null)
+    setGalleryInput('')
     setFormData({
       name: '',
       image: '',
@@ -65,6 +67,7 @@ function DashboardModels() {
 
   const handleEdit = (model) => {
     setEditingModel(model)
+    setGalleryInput('')
     setFormData({
       name: model.name || '',
       image: model.image || '',
@@ -87,12 +90,30 @@ function DashboardModels() {
       try {
         await modelsAPI.delete(id)
         toast.success('Model deleted successfully')
-        fetchModels()
+        fetchModels(false)
       } catch (error) {
         toast.error('Failed to delete model')
         console.error(error)
       }
     }
+  }
+
+  const handleAddGalleryImage = () => {
+    const url = galleryInput.trim()
+    if (url) {
+      setFormData((prev) => ({
+        ...prev,
+        gallery: [...(prev.gallery || []), url],
+      }))
+      setGalleryInput('')
+    }
+  }
+
+  const handleRemoveGalleryImage = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      gallery: prev.gallery.filter((_, i) => i !== index),
+    }))
   }
 
   const handleSubmit = async (e) => {
@@ -106,7 +127,7 @@ function DashboardModels() {
         toast.success('Model created successfully')
       }
       setIsModalOpen(false)
-      fetchModels()
+      fetchModels(false)
     } catch (error) {
       toast.error(error.response?.data?.message || 'Failed to save model')
       console.error(error)
@@ -258,10 +279,7 @@ function DashboardModels() {
                           />
                           <button
                             type="button"
-                            onClick={() => {
-                              const newGallery = formData.gallery.filter((_, i) => i !== index)
-                              setFormData({ ...formData, gallery: newGallery })
-                            }}
+                            onClick={() => handleRemoveGalleryImage(index)}
                             className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition"
                           >
                             ×
@@ -274,35 +292,19 @@ function DashboardModels() {
                     <input
                       type="text"
                       placeholder="Enter image URL and press Enter"
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-                      onKeyPress={(e) => {
+                      value={galleryInput}
+                      onChange={(e) => setGalleryInput(e.target.value)}
+                      onKeyDown={(e) => {
                         if (e.key === 'Enter') {
                           e.preventDefault()
-                          const url = e.target.value.trim()
-                          if (url) {
-                            setFormData({
-                              ...formData,
-                              gallery: [...(formData.gallery || []), url],
-                            })
-                            e.target.value = ''
-                          }
+                          handleAddGalleryImage()
                         }
                       }}
+                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
                     />
                     <button
                       type="button"
-                      onClick={(e) => {
-                        e.preventDefault()
-                        const input = e.target.previousElementSibling
-                        const url = input.value.trim()
-                        if (url) {
-                          setFormData({
-                            ...formData,
-                            gallery: [...(formData.gallery || []), url],
-                          })
-                          input.value = ''
-                        }
-                      }}
+                      onClick={handleAddGalleryImage}
                       className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600"
                     >
                       Add

@@ -32,6 +32,35 @@ function ModelDetail() {
     }
   }
 
+  // Combine model image with gallery images for auto-rotation
+  const galleryImages = model?.gallery || []
+  const allImages = model?.image ? [model.image, ...galleryImages] : galleryImages
+
+  // Auto-rotate main image every 6 seconds with fade effect
+  useEffect(() => {
+    if (allImages.length <= 1) return
+
+    const interval = setInterval(() => {
+      // Fade out
+      setImageOpacity(0)
+
+      // After fade out, change image and fade in
+      setTimeout(() => {
+        setCurrentMainImageIndex((prevIndex) => {
+          return (prevIndex + 1) % allImages.length
+        })
+        setImageOpacity(1)
+      }, 300) // Half of transition duration
+    }, 6000) // Change every 6 seconds
+
+    return () => clearInterval(interval)
+  }, [allImages.length])
+
+  const handleImageClick = (index) => {
+    setActiveImageIndex(index)
+    setIsGalleryOpen(true)
+  }
+
   if (loading) {
     return (
       <>
@@ -60,33 +89,6 @@ function ModelDetail() {
         <Footer />
       </>
     )
-  }
-
-  // Combine model image with gallery images for auto-rotation
-  const galleryImages = model.gallery || []
-  const allImages = model.image ? [model.image, ...galleryImages] : galleryImages
-
-  // Auto-rotate main image every 6 seconds with fade effect
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // Fade out
-      setImageOpacity(0)
-      
-      // After fade out, change image and fade in
-      setTimeout(() => {
-        setCurrentMainImageIndex((prevIndex) => {
-          return (prevIndex + 1) % allImages.length
-        })
-        setImageOpacity(1)
-      }, 300) // Half of transition duration
-    }, 6000) // Change every 6 seconds
-
-    return () => clearInterval(interval)
-  }, [allImages.length])
-
-  const handleImageClick = (index) => {
-    setActiveImageIndex(index)
-    setIsGalleryOpen(true)
   }
 
   return (
@@ -182,57 +184,78 @@ function ModelDetail() {
                   <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">
                     Book {model.name}
                   </h2>
+                  <div className="mb-6 p-4 bg-white rounded-xl shadow-md">
+                    <BookingForm type="model" talentId={model.id} talentName={model.name} />
+                  </div>
+                  <p className="text-sm text-gray-600 mb-4">Or contact directly:</p>
                   <div className="space-y-4">
-                    <a
-                      href="mailto:Ubuhle@gmail.com"
-                      className="flex items-center p-4 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group"
-                    >
-                      <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="w-6 h-6 text-white"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}
+                    {(model.email || model.phone) ? (
+                      <>
+                        {model.email && (
+                          <a
+                            href={`mailto:${model.email}`}
+                            className="flex items-center p-4 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group"
+                          >
+                            <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                              </svg>
+                            </div>
+                            <div className="ml-4">
+                              <p className="text-sm text-gray-500 font-medium">Email</p>
+                              <p className="text-blue-600 font-semibold break-all">{model.email}</p>
+                            </div>
+                          </a>
+                        )}
+                        {model.phone && (
+                          <a
+                            href={`tel:${model.phone.replace(/\s/g, '')}`}
+                            className="flex items-center p-4 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group"
+                          >
+                            <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                              </svg>
+                            </div>
+                            <div className="ml-4">
+                              <p className="text-sm text-gray-500 font-medium">Phone</p>
+                              <p className="text-green-600 font-semibold">{model.phone}</p>
+                            </div>
+                          </a>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        <a
+                          href="mailto:Ubuhle@gmail.com"
+                          className="flex items-center p-4 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                          />
-                        </svg>
-                      </div>
-                      <div className="ml-4">
-                        <p className="text-sm text-gray-500 font-medium">Email</p>
-                        <p className="text-blue-600 font-semibold break-all">Ubuhle@gmail.com</p>
-                      </div>
-                    </a>
-                    <a
-                      href="tel:0605503464"
-                      className="flex items-center p-4 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group"
-                    >
-                      <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="w-6 h-6 text-white"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}
+                          <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                          </div>
+                          <div className="ml-4">
+                            <p className="text-sm text-gray-500 font-medium">Email</p>
+                            <p className="text-blue-600 font-semibold break-all">Ubuhle@gmail.com</p>
+                          </div>
+                        </a>
+                        <a
+                          href="tel:0605503464"
+                          className="flex items-center p-4 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                          />
-                        </svg>
-                      </div>
-                      <div className="ml-4">
-                        <p className="text-sm text-gray-500 font-medium">Phone</p>
-                        <p className="text-green-600 font-semibold">060 550 3464</p>
-                      </div>
-                    </a>
+                          <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                            </svg>
+                          </div>
+                          <div className="ml-4">
+                            <p className="text-sm text-gray-500 font-medium">Phone</p>
+                            <p className="text-green-600 font-semibold">060 550 3464</p>
+                          </div>
+                        </a>
+                      </>
+                    )}
                   </div>
                 </div>
 
