@@ -3,7 +3,7 @@ const Artist = require('../models/Artist');
 // @desc    Get all artists
 // @route   GET /api/artists
 // @access  Public
-const getArtists = async (req, res) => {
+const getArtists = async (res) => {
   try {
     const artists = await Artist.findAll({
       order: [['createdAt', 'DESC']],

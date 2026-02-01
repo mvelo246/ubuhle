@@ -1,7 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import ImageGallery from '../components/ImageGallery'
 import { modelsAPI } from '../services/api'
 import { useState, useEffect } from 'react'
 

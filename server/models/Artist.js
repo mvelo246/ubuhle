@@ -17,7 +17,7 @@ const Artist = sequelize.define(
       },
     },
     image: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       defaultValue: '',
     },
     bio: {
