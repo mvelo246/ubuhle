@@ -12,6 +12,7 @@ function DashboardEvents() {
     image: '',
     description: '',
     status: 'upcoming',
+    youtubeUrl: '',
   })
 
   const filteredEvents = events.filter((event) =>
@@ -20,13 +21,13 @@ function DashboardEvents() {
 
   const handleAdd = () => {
     setEditingEvent(null)
-    setFormData({ title: '', date: '', image: '', description: '', status: 'upcoming' })
+    setFormData({ title: '', date: '', image: '', description: '', status: 'upcoming', youtubeUrl: '' })
     setIsModalOpen(true)
   }
 
   const handleEdit = (event) => {
     setEditingEvent(event)
-    setFormData(event)
+    setFormData({ ...event, youtubeUrl: event.youtubeUrl || '' })
     setIsModalOpen(true)
   }
 
@@ -47,7 +48,7 @@ function DashboardEvents() {
       setEvents([...events, { ...formData, id: newId }])
     }
     setIsModalOpen(false)
-    setFormData({ title: '', date: '', image: '', description: '', status: 'upcoming' })
+    setFormData({ title: '', date: '', image: '', description: '', status: 'upcoming', youtubeUrl: '' })
   }
 
   const getStatusBadge = (status) => {
@@ -202,6 +203,21 @@ function DashboardEvents() {
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
                   rows="3"
                 />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  YouTube URL (Optional)
+                </label>
+                <input
+                  type="text"
+                  placeholder="https://www.youtube.com/watch?v=..."
+                  value={formData.youtubeUrl || ''}
+                  onChange={(e) => setFormData({ ...formData, youtubeUrl: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                />
+                <p className="mt-1 text-xs text-gray-500">
+                  Enter a YouTube video URL to display a video player on the event detail page
+                </p>
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">

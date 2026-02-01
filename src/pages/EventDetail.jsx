@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import EventCard from '../components/EventCard'
+import VideoPlayer from '../components/VideoPlayer'
 import { events } from '../data/mockData'
 
 function EventDetail() {
@@ -26,6 +27,13 @@ function EventDetail() {
             alt={event.title}
             className="w-full h-auto mb-8"
           />
+
+          {/* Video Player Section */}
+          {event.youtubeUrl && (
+            <div className="mb-8">
+              <VideoPlayer song={{ youtubeUrl: event.youtubeUrl, name: event.title }} />
+            </div>
+          )}
 
           <div className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl mx-auto">
             <p>{event.description}</p>

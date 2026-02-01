@@ -138,6 +138,7 @@ export const events = [
     image: 'https://picsum.photos/id/188/720/400',
     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam modi, expedita quos doloremque autem ipsum itaque incidunt ipsam reprehenderit fuga! Dolores quisquam eius cum accusamus?',
     status: 'upcoming',
+    youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
   },
   {
     id: 2,
