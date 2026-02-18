@@ -27,23 +27,7 @@ function Contact() {
     <>
       <Header />
       
-      {/* Hero Section */}
-      <div className="relative min-h-[600px] sm:min-h-[700px] flex items-center overflow-hidden" style={{ backgroundColor: '#48545a' }}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-12 sm:py-16">
-          <div className="text-center max-w-4xl mx-auto">
-            <span className="inline-block text-blue-200 text-sm sm:text-base font-semibold uppercase tracking-wider mb-4">
-              Contact Us
-            </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-lg">
-              Get In <span className="text-yellow-300">Touch</span>
-            </h1>
-            <p className="text-lg sm:text-xl text-white/90 leading-relaxed">
-              We'd love to hear from you. Send us a message and we'll respond as soon as possible.
-            </p>
-          </div>
-        </div>
-      </div>
-
+  
       {/* Main Content */}
       <div className="bg-gray-50 py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

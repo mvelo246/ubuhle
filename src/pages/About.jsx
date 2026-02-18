@@ -5,24 +5,7 @@ function About() {
   return (
     <>
       <Header />
-      
-      {/* Hero Section */}
-      <div className="relative min-h-[600px] sm:min-h-[700px] flex items-center overflow-hidden" style={{ backgroundColor: '#48545a' }}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-12 sm:py-16">
-          <div className="text-center max-w-4xl mx-auto">
-            <span className="inline-block text-blue-200 text-sm sm:text-base font-semibold uppercase tracking-wider mb-4">
-              About Us
-            </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-lg">
-              About <span className="text-yellow-300">Ubuhle Bekonjana</span>
-            </h1>
-            <p className="text-lg sm:text-xl text-white/90 leading-relaxed">
-              Celebrating talent, creativity, and excellence in music, modeling, and entertainment
-            </p>
-          </div>
-        </div>
-      </div>
-
+    
       {/* Main Content Section */}
       <div className="bg-white py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
